@@ -1,6 +1,10 @@
-<form hx-post="/upload/" hx-target="#result" enctype="multipart/form-data" class="mb-4">
+<form id="upload-form" hx-post="/upload/" hx-target="#result" enctype="multipart/form-data" class="mb-4">
     <div class="mb-3">
-        <input type="file" name="file" class="form-control" required>
+        <label for="file" class="form-label">Upload File</label>
+        <input type="file" name="file" id="file" class="form-control" required>
+        <div class="invalid-feedback">
+            Please select a valid .png or .jpeg file (max 5 MB).
+        </div>
     </div>
     <button type="submit" class="btn btn-primary">Upload</button>
 </form>
