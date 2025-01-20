@@ -1,0 +1,39 @@
+body {
+    font-family: 'Arial', sans-serif;
+}
+
+h1 {
+    animation: fadeIn 2s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+.nav-link.active {
+    background-color: #007bff; /* A softer blue color */
+    color: white;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-link {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-link:hover {
+    background-color: #0056b3; /* Slightly darker blue on hover */
+    color: white;
+}
+
+.invalid-feedback {
+    display: none;
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 0.875em;
+    color: #dc3545; /* Bootstrap's default color for invalid feedback */
+}

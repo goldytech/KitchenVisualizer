@@ -133,9 +133,6 @@ cython_debug/
 # Node.js
 node_modules/
 
-# Static files
-app/static/css/styles.css
-app/static/js/scripts.js
 
 # Compiled files
 *.o

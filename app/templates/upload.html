@@ -1,4 +1,10 @@
 <form id="upload-form" hx-post="/upload/" hx-target="#result" enctype="multipart/form-data" class="mb-4">
+    <div id="validation-summary" class="text-danger mb-3" style="display: none;">
+        <ul id="validation-errors"></ul>
+    </div>
+    <div class="mb-3 text-info">
+        Please select a valid .png or .jpeg file (max 5 MB).
+    </div>
     <div class="mb-3">
         <label for="file" class="form-label">Upload File</label>
         <input type="file" name="file" id="file" class="form-control" required>
