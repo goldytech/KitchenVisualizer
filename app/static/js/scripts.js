@@ -78,7 +78,15 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 document.addEventListener('htmx:afterRequest', function(event) {
-    if (event.detail.target.id === 'result' && event.detail.xhr.status === 400) {
+    if (event.detail.target.id === 'result' && event.detail.xhr.status === 200) {
+        const response = JSON.parse(event.detail.xhr.responseText);
+        if (response.detected_image) {
+            const detectedImageDiv = document.getElementById('detected-image');
+            const detectedImageSrc = document.getElementById('detected-image-src');
+            detectedImageSrc.src = response.detected_image;
+            detectedImageDiv.style.display = 'block';
+        }
+    } else if (event.detail.target.id === 'result' && event.detail.xhr.status === 400) {
         const response = JSON.parse(event.detail.xhr.responseText);
         if (response.errors) {
             displayValidationErrors(response.errors);

@@ -3,6 +3,7 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.templating import Jinja2Templates
 from starlette.requests import Request
 import os
+from yolo_inference import save_inference_result_image_no_boxes
 
 router = APIRouter()
 templates = Jinja2Templates(directory="app/templates")
@@ -23,24 +24,6 @@ async def upload_form(request: Request):
 
 @router.post("/upload/")
 async def upload_file(file: UploadFile = File(...)):
-    """
-    Handles file uploads to the server.
-
-    Args:
-        file (UploadFile): The file to be uploaded; must be provided.
-
-    Validations:
-        - File type must be either "image/png" or "image/jpeg".
-        - File size must not exceed 5 MB.
-
-    Returns:
-        JSONResponse:
-            - 400: If the file fails validation (includes details of the error(s)).
-            - 200: If the file is uploaded successfully (includes upload information).
-
-    Raises:
-        HTTPException (500): If there is any server-side error during file processing.
-    """
     valid_types = ["image/png", "image/jpeg"]
     max_size = 5 * 1024 * 1024  # 5 MB
     errors = []
@@ -60,6 +43,10 @@ async def upload_file(file: UploadFile = File(...)):
         with open(file_location, "wb") as f:
             f.write(file_size)
 
-        return {"info": f"File '{file.filename}' uploaded successfully"}
+        # Run YOLO model inference
+        output_image_path = f"uploads/detected_{file.filename}"
+        save_inference_result_image_no_boxes(file_location, "path/to/yolo_model.pt", output_image_path)
+
+        return {"info": f"File '{file.filename}' uploaded successfully", "detected_image": output_image_path}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
