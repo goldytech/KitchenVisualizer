@@ -192,3 +192,4 @@ node_modules/
 *.sublime-scheme
 *.sublime-syntax
 *.sublime-build
+/uploads/
